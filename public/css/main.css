@@ -25,25 +25,24 @@ body {
 
 header {
 	color: #00BCD4;
-	height: 56px;
-	margin: 0 0 14px 0;
+	height: 20px;
+	margin: 0 auto 30px auto;
 	text-align: center;
+	width: 90%;
+	background-color: #eaeaea;
+	padding: 15px 20px;
 }
 
 p {
 	margin: 8px 0 0 0;
 }
 
-.container p {
+.container {
 	text-align: center;
 	padding: 0;
 }
 
 /****** Header Styling ******/
-
-header p {
-	margin: 16px 0 5px 0;
-}
 
 .menu {
 	text-decoration: none;
@@ -64,11 +63,13 @@ header p {
 	color: #FF630D;
 }
 
-header a ~ p {
-	margin: 0;
+header div{
 	padding: 0;
 	display: inline;
-	color: #ECEFF1;
+}
+
+#logo{
+	float: left;
 }
 
 #display-name {
