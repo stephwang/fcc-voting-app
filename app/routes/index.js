@@ -53,13 +53,7 @@ module.exports = function (app, passport) {
 		
 	app.route('/submit-form')
 		.get(isLoggedIn, pollHandler.addPollAndRedirect);
-	
-	// auth routes
-	app.route('/api/:id')
-		.get(isLoggedIn, function (req, res) {
-			res.json(req.user.github);
-		});
-
+		
 	app.route('/auth/github')
 		.get(passport.authenticate('github'));
 
@@ -69,8 +63,16 @@ module.exports = function (app, passport) {
 			failureRedirect: '/login'
 		}));
 
-	// list of existing polls
+	// api routes
 	app.route('/api/pollslist')
 		.get(pollHandler.getPollsList);
+	
+	app.route('/api/optionslist')
+		.get(pollHandler.getOptionsList);
 
+	// auth routes
+	//app.route('/api/:id')
+	//	.get(isLoggedIn, function (req, res) {
+	//		res.json(req.user.github);
+	//	});
 };

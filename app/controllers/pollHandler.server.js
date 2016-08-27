@@ -5,8 +5,15 @@ var Poll = require('../models/polls.js');
 function PollHandler () {
     
     this.getPollsList = function(req, res){
-        
+        Poll.poll.find({}, function(err, polls){
+            if(err) throw err;
+            res.JSON(polls);
+        });
     };
+    
+    this.getOptionsList = function(req, res){
+        Poll.votes.find({pollId: req.params.id})
+    }
     
 	var self = this;
 	

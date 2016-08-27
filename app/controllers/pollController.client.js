@@ -6,17 +6,14 @@
    var apiUrl = appUrl + '/api/pollslist';
 
    function updatePollsDiv (data) {
-      pollsDiv.innerHTML = 'hello!';
+      var dataObj = JSON.parse(data);
+      var html = "";
+      dataObj.forEach(function(item){
+         html += "<a href='/poll/" + item._id + "'><div class='poll'>" + item.title + "</div></a>";
+      });
+      pollsDiv.innerHTML = html;
    }
 
    ajaxFunctions.ready(ajaxFunctions.ajaxRequest('GET', apiUrl, updatePollsDiv));
-
-   deleteButton.addEventListener('click', function () {
-
-      ajaxFunctions.ajaxRequest('DELETE', apiUrl, function () {
-         ajaxFunctions.ajaxRequest('GET', apiUrl, updateClickCount);
-      });
-
-   }, false);
 
 })();
