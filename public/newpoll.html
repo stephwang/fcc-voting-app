@@ -6,6 +6,7 @@
 		<title>Vote for things!</title>
 		
 		<link href="/public/css/main.css" rel="stylesheet" type="text/css">
+		<link href="/public/css/poll.css" rel="stylesheet" type="text/css">
 	</head>
 
 	<header id="header">
@@ -16,16 +17,20 @@
 
 	<body>
 		<div class="container">
-			<h1>FCC Voting</h1>
-			<p>Select a poll to vote and see the results, <a href="/newpoll">or make a new poll!</a></p>
-		</div>
-	
-		<div id="polls">
-		
+			<h1>Create new poll</h1>
+			<form id="newpoll" action="/submit-form">
+			    <label for="title">Title:</label><br>
+			    <input type="text" name="title">
+			    <br>
+			    <label for="options">Options (separated by line):</label>
+			    <br>
+			    <textarea name="options" rows="5"></textarea>
+			    <br>
+			    <input type="submit" value="submit">
+			</form>
 		</div>
 
 		<script type="text/javascript" src="controllers/userController.client.js"></script>
-		<script type="text/javascript" src="controllers/pollController.client.js"></script>
 	</body>
 
 </html>
