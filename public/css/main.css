@@ -203,3 +203,10 @@ span {
 	display: inline;
 	margin: 0;
 }
+
+/* polls list on the main page */
+.poll{
+	padding: 5px;
+	margin: 5px;
+	background-color: #eee;
+}

@@ -41,10 +41,8 @@ module.exports = function (app, passport) {
 	
 		
 	// poll routes
-	app.route('/poll/:id')
-		.get(function(req, res){
-			res.sendFile(path + '/public/poll.html');
-		});
+	app.route('/poll/:pollid')
+		.get(pollHandler.getOptionsList);
 	
 	app.route('/newpoll')
 		.get(isLoggedIn, function (req, res) {
@@ -67,12 +65,11 @@ module.exports = function (app, passport) {
 	app.route('/api/pollslist')
 		.get(pollHandler.getPollsList);
 	
-	app.route('/api/optionslist')
+	app.route('/api/optionslist/:pollid')
 		.get(pollHandler.getOptionsList);
 
-	// auth routes
-	//app.route('/api/:id')
-	//	.get(isLoggedIn, function (req, res) {
-	//		res.json(req.user.github);
-	//	});
+	app.route('/api/user/:id')
+		.get(isLoggedIn, function (req, res) {
+			res.json(req.user.github);
+		});
 };

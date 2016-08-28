@@ -7,13 +7,18 @@ function PollHandler () {
     this.getPollsList = function(req, res){
         Poll.poll.find({}, function(err, polls){
             if(err) throw err;
-            res.JSON(polls);
+            res.json(polls);
         });
     };
     
     this.getOptionsList = function(req, res){
-        Poll.votes.find({pollId: req.params.id})
-    }
+        Poll.votes.find({pollId: req.params.pollid}, function(err, options){
+            if(err) throw err;
+            res.render(process.cwd() + '/public/poll.ejs', {
+			    options: options
+			});
+        });
+    };
     
 	var self = this;
 	
