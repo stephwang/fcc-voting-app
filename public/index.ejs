@@ -5,13 +5,10 @@
 	<head>
 		<title>Vote for things!</title>
 		<link href="/public/css/main.css" rel="stylesheet" type="text/css">
+		<script src="https://code.jquery.com/jquery-2.2.0.min.js"></script>
 	</head>
 
-	<header id="header">
-		<div id="logo"><a href="/" class="menu">FCC-Vote</a></div>
-		<div id="display-name"></div>
-		<a class="menu" href="/logout">Logout</a>
-	</header>
+	<header><% include nav.ejs %></header>
 
 	<body>
 		<div class="container">
@@ -21,8 +18,10 @@
 		</div>
 		
 		<script type="text/javascript" src="common/ajax-functions.js"></script>
-		<script type="text/javascript" src="controllers/userController.client.js"></script>
 		<script type="text/javascript" src="controllers/pollController.client.js"></script>
+		<% if(isAuthed) { %>
+			<script type="text/javascript" src="controllers/userController.client.js"></script>
+		<% } %>
 	</body>
 
 </html>

@@ -1,0 +1,12 @@
+<div id="logo"><a href="/" class="menu">FCC-Vote</a></div>
+    <% if(isAuthed) {%>
+        <div id="display-name">
+        </div>
+    <% } %>
+<div id="log-in-out">
+    <% if(isAuthed) { %>
+        <a href="/logout" class="menu">Logout</a>
+    <% } else { %>
+        <a href="/login" class="menu">Login</a>
+    <% } %>
+</div>

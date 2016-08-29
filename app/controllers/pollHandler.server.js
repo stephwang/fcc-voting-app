@@ -14,9 +14,10 @@ function PollHandler () {
     this.getOptionsList = function(req, res, next){
         Poll.votes.find({pollId: req.params.pollid}, function(err, options){
             if(err) throw err;
-            res.render(process.cwd() + '/public/poll.ejs', {
-			    options: options
-			});
+            else {
+                req.params.result = options;
+                next(); 
+            }
         });
     };
     
