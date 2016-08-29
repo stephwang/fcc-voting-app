@@ -11,7 +11,7 @@ function PollHandler () {
         });
     };
     
-    this.getOptionsList = function(req, res){
+    this.getOptionsList = function(req, res, next){
         Poll.votes.find({pollId: req.params.pollid}, function(err, options){
             if(err) throw err;
             res.render(process.cwd() + '/public/poll.ejs', {
@@ -58,6 +58,28 @@ function PollHandler () {
             function(err, numAffected) {
                 if(err) throw err;
                 else console.log('added option: ' + numAffected);
+            }
+        );
+	};
+	
+	this.addVote = function(req, res){
+	    var vote;
+	    if (req.query.option == 'other'){
+	        vote = req.query.other;
+	    }
+	    else{
+	        vote = req.query.option;
+	    }
+	    Poll.votes.update(
+             {pollId: req.params.pollid, option: vote}, 
+            { 
+                $inc:{ numVotes: 1 }
+                , $setOnInsert: { pollId: req.params.pollid, option:vote } 
+            }, 
+            {upsert: true}, 
+            function(err, numAffected) {
+                if(err) throw err;
+                else res.send(vote);
             }
         );
 	};

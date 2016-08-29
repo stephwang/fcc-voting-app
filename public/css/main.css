@@ -37,6 +37,10 @@ p {
 	margin: 8px 0 0 0;
 }
 
+a {
+	text-decoration: none;
+}
+
 .container {
 	text-align: center;
 	padding: 0;
@@ -206,7 +210,12 @@ span {
 
 /* polls list on the main page */
 .poll{
-	padding: 5px;
-	margin: 5px;
+	padding: 10px 0px;
+	margin: 5px auto;
+	width: 700px;
 	background-color: #eee;
+	text-decoration: none;
+}
+.poll:hover{
+	background-color: #ddd;
 }

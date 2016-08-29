@@ -7,31 +7,61 @@
 		
 		<link href="/public/css/main.css" rel="stylesheet" type="text/css">
 		<link href="/public/css/poll.css" rel="stylesheet" type="text/css">
+		<script src="https://code.jquery.com/jquery-2.2.0.min.js"></script>
 	</head>
 
 	<header id="header">
 		<div id="logo"><a href="/" class="menu">FCC-Vote</a></div>
-		<div id="display-name"></div>
-		<a class="menu" href="/logout">Logout</a>
-	</header>
-
-	<body>
-		<div class="container">
-			<h1 id="title"></h1>
-			<form id="newpoll" action="/submit-form">
-			    <label for="option">Vote:</label><br>
-			    <select>
-			    	<% for(var i=0; i<options.length; i++) {%>
-   						<option value='<%= options[i].option %>'><%= options[i].option %></option>
+			<div id="display-name"></div>
+			<a class="menu" href="/logout">Logout</a>
+		</header>
+	
+		<body>
+			<div class="container">
+			<div class="half">
+				<h1 id="title"></h1>
+				<form id="vote">
+					
+				    <label for="option">Vote:</label><br>
+				    <select name="option" id="dropdown">
+				    	<option selected="selected" disabled="disabled">Vote for an option</option>
+				    	<% for(var i=0; i<options.length; i++) {%>
+	   						<option value='<%= options[i].option %>'><%= options[i].option %></option>
+						<% } %>
+						<option value="other">Other</option>
+				    </select><br>
+				    
+				    <div id="otherfield">
+				    	<label for="other">Enter your own value:</label>
+				    	<input type="text" name="other">
+				    </div>
+				    
+				    <br>
+				    <input type="submit" value="vote!">
+				    
+				</form>
+				<div id="message"></div>
+			</div>
+			<div id="results" class="half">
+				<h2>Results</h2>
+				<table>
+					<tr>
+						<th>Option</th>
+						<th>Votes</th>
+					</tr>
+					<% for(var i=0; i<options.length; i++) {%>
+	   					<tr>
+	   						<td><%= options[i].option %></td>
+	   						<td><%= options[i].numVotes %></td>
+	   					</tr>
 					<% } %>
-			    </select><br>
-			    <input type="submit" value="vote!">
-			</form>
-			<div id="debug"></div>
+				</table>
+			</div>
 		</div>
 		
-		<script type="text/javascript" src="common/ajax-functions.js"></script>
-		<script type="text/javascript" src="controllers/userController.client.js"></script>
+		<script type="text/javascript" src="../common/ajax-functions.js"></script>
+		<script type="text/javascript" src="../controllers/userController.client.js"></script>
+		<script type="text/javascript" src="../controllers/pollPageController.client.js"></script>
 	</body>
 
 </html>
