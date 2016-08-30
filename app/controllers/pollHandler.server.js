@@ -11,11 +11,31 @@ function PollHandler () {
         });
     };
     
+    this.getUserPolls = function(req, res, next){
+        Poll.poll.find({creator: req.user.github.id}, function(err, polls){
+            if(err) throw err;
+            req.params.mypolls = polls;
+            next();
+        });
+    }
+    
     this.getOptionsList = function(req, res, next){
         Poll.votes.find({pollId: req.params.pollid}, function(err, options){
             if(err) throw err;
             else {
-                req.params.result = options;
+                req.params.options = options;
+                next(); 
+            }
+        });
+    };
+    
+    this.getOptionsByCount = function(req, res, next){
+        Poll.votes.find({pollId: req.params.pollid})
+            .sort({numVotes: -1})
+            .exec(function(err, options){
+            if(err) throw err;
+            else {
+                req.params.orderedOptions = options;
                 next(); 
             }
         });
@@ -85,6 +105,23 @@ function PollHandler () {
         );
 	};
 
+    this.deletePoll = function(req, res, next){
+	    Poll.poll.remove(
+             {_id: req.params.pollid}, 
+            function(err, result) {
+                if(err) throw err;
+                else console.log('deleted ' + req.params.pollid);
+            }
+        );
+        Poll.votes.remove(
+            { pollId: req.params.pollid },
+            function(err, result) {
+                if (err) throw err;
+                else console.log(JSON.stringify(result));
+            }
+        )
+        next();
+	};
 }
 
 module.exports = PollHandler;

@@ -23,16 +23,6 @@ body {
 	padding: 0;
 }
 
-header {
-	color: #00BCD4;
-	height: 20px;
-	margin: 0 auto 30px auto;
-	text-align: center;
-	width: 90%;
-	background-color: #eaeaea;
-	padding: 15px 20px;
-}
-
 p {
 	margin: 8px 0 0 0;
 }
@@ -46,38 +36,73 @@ a {
 	padding: 0;
 }
 
+.float-right {
+	float: right;
+}
+
+
 /****** Header Styling ******/
 
-.menu {
-	text-decoration: none;
-	padding: 6px;
-	margin: 0;
-	color: #727272;
-}
-
-.menu:visited {
-	color: #727272;
-}
-
-.menu:hover {
-	color: #FFA000;
-}
-
-.menu:active {
-	color: #FF630D;
+header {
+	height: 20px;
+	margin: 0 auto 30px auto;
+	text-align: center;
+	background-color: #eaeaea;
+	padding: 15px 50px;
 }
 
 header div{
 	padding: 0;
 	display: inline;
+	margin: 0px 7px;
+}
+
+.nav-link {
+	text-decoration: none;
+	margin: 0;
+	color: #727272;
+}
+
+.nav-link:visited {
+	color: #727272;
+}
+
+.nav-link:hover {
+	color: #FFA000;
+}
+
+.nav-link:active {
+	color: #FF630D;
+}
+
+#menu {
+	position: absolute;
+	display: none;
+	min-width: 100px;
+	margin-top: 15px;
+	background-color: #eee;
+}
+.menu-item {
+	border: 1px solid #ddd;
+	display: block;
+	padding: 7px 0px;
+	margin: 0px;
 }
 
 #logo{
 	float: left;
 }
 
-#display-name {
+#user{
+	min-width: 120px;
+}
+.display-name {
 	font-weight: 400;
+	color: #00BCD4;
+}
+
+#login {
+	min-width: 120px;
 }
 
 /****** Login Styling ******/

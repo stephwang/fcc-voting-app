@@ -39,21 +39,39 @@ module.exports = function (app, passport) {
 		
 	// poll routes
 	app.route('/poll/:pollid')
-		.get(pollHandler.getOptionsList, function(req, res){
+		.get(pollHandler.getOptionsList
+			, pollHandler.getOptionsByCount
+			, function(req, res){
 			res.render(path + '/public/poll.ejs', {
-			    options: req.params.result,
+				pollid: req.params.pollid,
+			    options: req.params.options,
+			    orderedOptions: req.params.orderedOptions,
 			    isAuthed: req.isAuthenticated()
+			});
+		});
+		
+	app.route('/mypolls')
+		.get(isLoggedIn
+			, pollHandler.getUserPolls
+			, function (req, res) {
+			res.render(path + '/public/mypolls.ejs', {
+				isAuthed: req.isAuthenticated(),
+				myPolls: req.params.mypolls
 			});
 		});
 	
 	app.route('/newpoll')
 		.get(isLoggedIn, function (req, res) {
-			res.sendFile(path + '/public/newpoll.html');
+			res.render(path + '/public/newpoll.ejs', {
+				isAuthed: req.isAuthenticated()
+			});
 		});
-		
+
+	// submit new poll
 	app.route('/submit-form')
 		.get(isLoggedIn, pollHandler.addPollAndRedirect);
-		
+	
+	// auth routes
 	app.route('/auth/github')
 		.get(passport.authenticate('github'));
 
@@ -78,5 +96,8 @@ module.exports = function (app, passport) {
 		});
 	
 	app.route('/api/poll/:pollid')
-		.get(pollHandler.addVote)
+		.get(pollHandler.addVote);
+	
+	app.route('/delete/:pollid')
+		.get(pollHandler.deletePoll, function(req, res){ res.redirect('/') });
 };

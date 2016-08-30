@@ -45,15 +45,40 @@
 						<th>Option</th>
 						<th>Votes</th>
 					</tr>
-					<% for(var i=0; i<options.length; i++) {%>
+					<% for(var i=0; i<orderedOptions.length; i++) {%>
 	   					<tr>
-	   						<td><%= options[i].option %></td>
-	   						<td><%= options[i].numVotes %></td>
+	   						<td><%= orderedOptions[i].option %></td>
+	   						<td><%= orderedOptions[i].numVotes %></td>
 	   					</tr>
 					<% } %>
 				</table>
 			</div>
 		</div>
+		<% if (isAuthed) { %>
+			<div class="container" id="auth-options">
+				<!-- Facebook share button code -->
+				<div id="fb-root"></div>
+				<script>(function(d, s, id) {
+				  var js, fjs = d.getElementsByTagName(s)[0];
+				  if (d.getElementById(id)) return;
+				  js = d.createElement(s); js.id = id;
+				  js.src = "//connect.facebook.net/en_US/sdk.js#xfbml=1&version=v2.7";
+				  fjs.parentNode.insertBefore(js, fjs);
+				}(document, 'script', 'facebook-jssdk'));</script>
+				<div class="fb-share-button" 
+					data-href="https://fcc-voting-app-stephwang.c9users.io/poll/<%= pollid %>" 
+					data-layout="button" data-mobile-iframe="true">
+					<a class="fb-xfbml-parse-ignore" target="_blank" href="https://www.facebook.com/sharer/sharer.php?u=https%3A%2F%2Ffcc-voting-app-stephwang.c9users.io%2Fpoll%2F<%= pollid %>&amp;src=sdkpreparse">
+						Share
+					</a>
+				</div>
+			
+				<!-- Delete poll -->
+				<div id="delete">
+					<a href="/delete/<%= options[0].pollId %>">Delete poll</a>
+				</div>
+			</div>
+		<% } %>
 		
 		<script type="text/javascript" src="../common/ajax-functions.js"></script>
 		<script type="text/javascript" src="../controllers/userController.client.js"></script>

@@ -1,0 +1,33 @@
+<!DOCTYPE html>
+
+<html>
+
+	<head>
+		<title>Vote for things!</title>
+		<link href="/public/css/main.css" rel="stylesheet" type="text/css">
+		<script src="https://code.jquery.com/jquery-2.2.0.min.js"></script>
+	</head>
+
+	<header><% include nav.ejs %></header>
+
+	<body>
+		<div class="container">
+			<h1>My polls</h1>
+			<p>Select a poll to see the results, <a href="/newpoll">or make a new poll!</a></p>
+			<div id="polls">
+				<% for(var i=0; i<myPolls.length; i++) {%>
+					<a href='/poll/<%= myPolls[i]._id %>'>
+		   				<div class="poll">
+		   					<%= myPolls[i].title %>
+		   				</div>
+		   			</a>
+				<% } %>
+			</div>
+		</div>
+		<script type="text/javascript" src="common/ajax-functions.js"></script>
+		<% if(isAuthed) { %>
+			<script type="text/javascript" src="controllers/userController.client.js"></script>
+		<% } %>
+	</body>
+
+</html>

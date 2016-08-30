@@ -17,3 +17,11 @@ td {
 #otherfield {
     display: none;
 }
+
+.fb-share-button {
+    margin: 10px auto;
+}
+
+#auth-options {
+    margin-top: 10px;
+}
