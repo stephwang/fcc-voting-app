@@ -8,6 +8,7 @@
 		<link href="/public/css/main.css" rel="stylesheet" type="text/css">
 		<link href="/public/css/poll.css" rel="stylesheet" type="text/css">
 		<script src="https://code.jquery.com/jquery-2.2.0.min.js"></script>
+		<script src="https://cdnjs.cloudflare.com/ajax/libs/Chart.js/2.2.2/Chart.min.js"></script>
 	</head>
 
 	<header><% include nav.ejs %></header>
@@ -38,22 +39,47 @@
 				</form>
 				<div id="message"></div>
 			</div>
+			
 			<div id="results" class="half">
 				<h2>Results</h2>
-				<table>
-					<tr>
-						<th>Option</th>
-						<th>Votes</th>
-					</tr>
-					<% for(var i=0; i<orderedOptions.length; i++) {%>
-	   					<tr>
-	   						<td><%= orderedOptions[i].option %></td>
-	   						<td><%= orderedOptions[i].numVotes %></td>
-	   					</tr>
+				
+				<!-- chart using the data-->
+				<canvas id="pollChart" width="300" height="300"></canvas>
+				<script>
+					var ctx = $("#pollChart");
+					var colors=['#809FFF', '#DF80FF', '#80DFFF', '#4271FF', '#FF809F', '#FF9F80', '#FFD042', '#DFFF80', '#9FFF80'];
+					var labels=[];
+					var data=[];
+					var backgroundColor=[];
+					<% for(var i=0; i< orderedOptions.length ; i++) { %>
+						labels.push('<%= orderedOptions[i].option %>');
+						data.push(<%= orderedOptions[i].numVotes %>);
+						backgroundColor.push(colors[<%=i%>%colors.length]);
 					<% } %>
-				</table>
+					var chart = new Chart(ctx, {
+						type: 'pie',
+						data: {
+							labels: labels,
+							datasets: [
+								{
+									data: data,
+									backgroundColor: backgroundColor,
+									hoverBackgroundColor: backgroundColor
+								}
+							]
+						},
+						options: {
+							legend: {
+								labels: {
+									boxWidth: 30
+								}
+							}
+						}
+					});
+				</script>
 			</div>
 		</div>
+
 		<% if (isAuthed) { %>
 			<div class="container" id="auth-options">
 				<!-- Facebook share button code -->
@@ -80,9 +106,9 @@
 			</div>
 		<% } %>
 		
-		<script type="text/javascript" src="../common/ajax-functions.js"></script>
-		<script type="text/javascript" src="../controllers/userController.client.js"></script>
-		<script type="text/javascript" src="../controllers/pollPageController.client.js"></script>
+		<script type="text/javascript" src="/common/ajax-functions.js"></script>
+		<script type="text/javascript" src="/controllers/userController.client.js"></script>
+		<script type="text/javascript" src="/controllers/pollPageController.client.js"></script>
 	</body>
 
 </html>

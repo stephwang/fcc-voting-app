@@ -24,6 +24,7 @@
   "author": "Blake Johnston",
   "license": "MIT",
   "dependencies": {
+    "chart.js": "^2.2.2",
     "dotenv": "^1.2.0",
     "ejs": "^2.5.1",
     "express": "^4.12.4",
