@@ -32,7 +32,7 @@ module.exports = function (passport) {
 				} else {
 					var newUser = new User();
 
-					newUser.google.id = token; //profile.id?
+					newUser.google.id = profile.id
 					newUser.google.displayName = profile.displayName;
 
 					newUser.save(function (err) {
