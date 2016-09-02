@@ -15,8 +15,10 @@
 	
 	<body>
 		<div class="container">
+			<h1 id="title"><%= polltitle %></h1>
+		</div>
+		<div class="container">
 			<div class="half">
-				<h1 id="title"></h1>
 				<form id="vote">
 						
 				    <label for="option">Vote:</label><br>
@@ -100,9 +102,11 @@
 				</div>
 			
 				<!-- Delete poll -->
+				<% if (isOwner) { %>
 				<div id="delete">
 					<a href="/delete/<%= options[0].pollId %>">Delete poll</a>
 				</div>
+				<% } %>
 			</div>
 		<% } %>
 		

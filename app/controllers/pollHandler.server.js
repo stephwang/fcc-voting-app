@@ -11,8 +11,16 @@ function PollHandler () {
         });
     };
     
+    this.getPoll = function(req, res, next){
+        Poll.poll.findOne({ _id: req.params.pollid }, function(err, poll){
+            if(err) throw err;
+            req.params.poll = poll;
+            next();
+        });
+    };
+    
     this.getUserPolls = function(req, res, next){
-        Poll.poll.find({creator: req.user.github.id}, function(err, polls){
+        Poll.poll.find({creator: req.user.google.id}, function(err, polls){
             if(err) throw err;
             req.params.mypolls = polls;
             next();
@@ -49,7 +57,7 @@ function PollHandler () {
 	    
 	    // add the poll in the poll
 		var poll = new Poll.poll({
-    	    creator: req.user.github.id,
+    	    creator: req.user.google.id,
     		title: title,
         });
         poll.save(function (err, data) {

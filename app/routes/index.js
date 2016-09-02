@@ -1,7 +1,6 @@
 'use strict';
 
 var path = process.cwd();
-var ClickHandler = require(path + '/app/controllers/clickHandler.server.js');
 var PollHandler = require(path + '/app/controllers/pollHandler.server.js');
 
 module.exports = function (app, passport) {
@@ -14,7 +13,6 @@ module.exports = function (app, passport) {
 		}
 	}
 
-	var clickHandler = new ClickHandler();
 	var pollHandler = new PollHandler();
 	
 	// general routes
@@ -39,11 +37,17 @@ module.exports = function (app, passport) {
 		
 	// poll routes
 	app.route('/poll/:pollid')
-		.get(pollHandler.getOptionsList
+		.get(pollHandler.getPoll
+			, pollHandler.getOptionsList
 			, pollHandler.getOptionsByCount
 			, function(req, res){
+				if(req.isAuthenticated()){
+					var isOwner = (req.user.google.id == req.params.poll.creator);
+				}
 			res.render(path + '/public/poll.ejs', {
+				isOwner: isOwner || false,
 				pollid: req.params.pollid,
+				polltitle: req.params.poll.title,
 			    options: req.params.options,
 			    orderedOptions: req.params.orderedOptions,
 			    isAuthed: req.isAuthenticated()
@@ -72,11 +76,11 @@ module.exports = function (app, passport) {
 		.get(isLoggedIn, pollHandler.addPollAndRedirect);
 	
 	// auth routes
-	app.route('/auth/github')
-		.get(passport.authenticate('github'));
+	app.route('/auth/google')
+		.get(passport.authenticate('google', { scope : ['profile'] }));
 
-	app.route('/auth/github/callback')
-		.get(passport.authenticate('github', {
+	app.route('/auth/google/callback')
+		.get(passport.authenticate('google', {
 			successRedirect: '/',
 			failureRedirect: '/login'
 		}));
@@ -88,7 +92,7 @@ module.exports = function (app, passport) {
 	app.route('/api/user/:id')
 		.get(function (req, res) {
 			if(req.user){
-				res.json(req.user.github);
+				res.json(req.user.google);
 			}
 			else {
 				res.json(null);
