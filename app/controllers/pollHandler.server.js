@@ -5,7 +5,7 @@ var Poll = require('../models/polls.js');
 function PollHandler () {
     
     this.getPollsList = function(req, res){
-        Poll.poll.find({}, function(err, polls){
+        Poll.poll.find({}).sort({created: -1}).exec(function(err, polls){
             if(err) throw err;
             res.json(polls);
         });

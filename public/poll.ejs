@@ -54,7 +54,7 @@
 					var data=[];
 					var backgroundColor=[];
 					<% for(var i=0; i< orderedOptions.length ; i++) { %>
-						labels.push('<%= orderedOptions[i].option %>');
+						labels.push("<%- orderedOptions[i].option %>");
 						data.push(<%= orderedOptions[i].numVotes %>);
 						backgroundColor.push(colors[<%=i%>%colors.length]);
 					<% } %>
